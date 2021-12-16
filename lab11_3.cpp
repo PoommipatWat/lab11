@@ -3,6 +3,7 @@
 #include<string>
 #include<cstdlib>
 #include<cmath>
+#include<iomanip>
 using namespace std;
 
 int main (){
@@ -12,10 +13,8 @@ int main (){
     string textline;
     double numline, sum, mean, sd;
     int num = 0;
-    while (true)
+    while (getline(source, textline))
     {
-        getline(source, textline);
-        if (textline == "") break;
         numline = atof(textline.c_str());
         sum += numline;
         num++;
@@ -24,17 +23,15 @@ int main (){
     mean = sum/num;
 
     source.open("score.txt");
-    while (true)
-    {
-        getline(source, textline);
-        if (textline == "") break;
+    while (getline(source, textline))
+    {  
         numline = atof(textline.c_str());
         sd += pow((numline-mean),2);
     }
     source.close();
-    sd /= num-1;
+    sd /= num;
     sd = sqrt(sd);
-
+    cout << setprecision(3);
     cout << "Number of data = " << num << endl;
     cout << "Mean = " << mean << endl;
     cout << "Standard deviation = " << sd << endl;
